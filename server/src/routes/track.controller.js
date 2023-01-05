@@ -21,7 +21,7 @@ async function httpAddNewResult(req, res) {
     const result = req.body; //gets data from launch like mission, rocket, launchdata and target
 
     //error handling post requests
-    if (!result.key || !result.robotId || !result.round || !result.time) {
+    if (!result.key || !result.robotId || !result.round || !result.roundTime || !result.totalTime) {
         return res.status(400).json({
             error: 'Missing required properties: robotID/ round',
         });

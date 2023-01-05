@@ -21,9 +21,14 @@ const trackSchemas = new mongoose.Schema({
         required: true,  
         type: Number,
     },
-    time:
+    roundTime:
     {
-        type: Date,
+        type: Number,
+        required: true
+    },
+    totalTime:
+    {
+        type: Number,
         required: true
     }
 });

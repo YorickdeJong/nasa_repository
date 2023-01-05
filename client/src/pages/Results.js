@@ -31,7 +31,8 @@ const Results = props => {
                 </td>
                 <td>{result.robotId}</td>
                 <td>{result.round}</td>
-                <td>{new Date(result.time).toTimeString().split(' ')[0]}</td>
+                <td>{result.roundTime}</td>
+                <td>{result.totalTime}</td>
             </tr>;
         });
     }, [results, deleteResult, classes.link]);
@@ -46,7 +47,8 @@ const Results = props => {
                         <th style={{ width: "3rem" }}></th>
                         <th style={{ width: "11rem" }}>Robot ID</th>
                         <th style={{ width: "11rem" }}>Round</th>
-                        <th style={{ width: "11rem" }}>Date</th>
+                        <th style={{ width: "11rem" }}>Round Time</th>
+                        <th style={{ width: "11rem" }}>Total Time</th>
                     </tr>
                 </thead>
                 <tbody>

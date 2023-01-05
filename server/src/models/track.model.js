@@ -7,25 +7,6 @@
 
 const trackDatabase = require('./track.mongo');
 
-
-//Test
-const roundTest = {
-    key: 1,
-    robotId: 3,
-    round: 2,
-    time: new Date("2023-01-03")
-}
-
-const roundTest2 = {
-    key: 2,
-    robotId: 1,
-    round: 1,
-    time: new Date("2023-01-03T07:12:39.301+00:00")
-}
-
-saveResult(roundTest);
-saveResult(roundTest2);
-
 //GET, POST, DELETE
 async function getAllResults() {
     return await trackDatabase
@@ -80,13 +61,15 @@ async function saveResult(result) {
             key: result.key,
             robotId: result.robotId,
             round: result.round,
-            time: result.time
+            roundTime: result.roundTime,
+            totalTime: result.totalTime
         }, 
         {       
             key: result.key, 
             roboId: result.robotId,
             round: result.round,
-            time: result.time
+            roundTime: result.roundTime,
+            totalTime: result.totalTime
         },
         {
             upsert: true,
