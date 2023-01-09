@@ -5,11 +5,11 @@
  * Delete function, to delete objects from database 
  */
 
-const trackDatabase = require('./track.mongo');
+const roundDatabase = require('./round.mongo');
 
 //GET, POST, DELETE
 async function getAllResults() {
-    return await trackDatabase
+    return await roundDatabase
         .find({}, {
             '_id': 0, '__v': 0
         })
@@ -28,7 +28,7 @@ async function addNewResult(result) {
 }
 
 async function deleteResultId(Id) {
-    const deleted = await trackDatabase.findOneAndDelete({
+    const deleted = await roundDatabase.findOneAndDelete({
         key: Id,
     }, (err, res) => {
         if (err) {
@@ -40,13 +40,13 @@ async function deleteResultId(Id) {
             return true;
         }
     })
-        .clone().catch(function (err) { console.log(err) });
+    .clone().catch(function (err) { console.log(err) });
 
 }
 
 async function existsResultWithId(Id) //Adjusting for mangoDB, we are now searching in mango to see if the launchId is equal to the flightNumber
 {
-    return await trackDatabase.findOne({
+    return await roundDatabase.findOne({
         key: Id,
     });
 }
@@ -56,7 +56,7 @@ async function existsResultWithId(Id) //Adjusting for mangoDB, we are now search
 async function saveResult(result) {
 
     //await trackDatabase.findOneAndUpdate( //instead of updateOne we use findOneAndUpdate -> only returns the properties that we set in our update
-    await trackDatabase.updateOne( //instead of updateOne we use findOneAndUpdate -> only returns the properties that we set in our update
+    await roundDatabase.updateOne( //instead of updateOne we use findOneAndUpdate -> only returns the properties that we set in our update
         {
             key: result.key,
             robotId: result.robotId,

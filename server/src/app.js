@@ -5,7 +5,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 
-const LeaderBoardRouter = require('./routes/track.router');
+const LeaderBoardRouter = require('./routes/round/round.router');
+const HallOfFameRouter = require('./routes/bestRound/bestRound.router');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
 
 app.use('/LeaderBoard', LeaderBoardRouter);
+app.use('/HallOfFame', HallOfFameRouter);
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', '..', 'client', 'public', 'index.html'));

@@ -5,7 +5,7 @@
 
 const mongoose = require('mongoose');
 
-const trackSchemas = new mongoose.Schema({
+const powerUpSchemas = new mongoose.Schema({
     key:
     {
         required: true,
@@ -16,20 +16,10 @@ const trackSchemas = new mongoose.Schema({
         required: true,
         type: Number,
     },
-    round:
+    powerUp:
     {
-        required: true,  
-        type: Number,
-    },
-    roundTime:
-    {
-        type: Number,
-        required: true
-    },
-    totalTime:
-    {
-        type: Number,
-        required: true
+        required: true,
+        type:Number,
     }
 });
 

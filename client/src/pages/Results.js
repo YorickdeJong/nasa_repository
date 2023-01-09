@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useEffect, useCallback } from "react";
 import { withStyles, Appear, Paragraph, Link, Table } from "arwes";
 import Clickable from "../components/Clickable";
 
@@ -16,7 +16,14 @@ const Results = props => {
         results,
         classes,
         deleteResult,
+        submitBestResults
     } = props;
+
+    //Submit new racing results to the hall of fame, such that the current race results
+    //can be deleted
+    useEffect(() => {
+        submitBestResults(results);
+    }, []);
 
     // display results/ leaderboard
     const tableBody = useMemo(() => {
@@ -38,7 +45,7 @@ const Results = props => {
     }, [results, deleteResult, classes.link]);
 
 
-    return <Appear id="upcoming" animate show={entered}>
+    return <Appear id="results" animate show={entered}>
         <Paragraph>Racing Results</Paragraph>
         <Table animate show={entered}>
             <table style={{ tableLayout: "fixed" }}>

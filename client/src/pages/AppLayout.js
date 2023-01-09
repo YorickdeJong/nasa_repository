@@ -5,8 +5,13 @@ import {
 } from "react-router-dom";
 
 import { Frame, withStyles } from "arwes";
+
 import Results from "./Results";
+import BestResults from "./BestResults";
+
 import useResult from "../hooks/useResult";
+import Header from "../components/Header";
+import Centered from "../components/Centered";
 
 //custom styles
 const styles = () => ({
@@ -26,16 +31,28 @@ const styles = () => ({
 //Components definition
 const AppLayout = props => {
     const { sounds, classes } = props;
+
+    //Animations
     const [frameVisible, setFrameVisible] = useState(true);
+    const animateFrame = () => {
+        setFrameVisible(false);
+        setTimeout(() => {
+        setFrameVisible(true);
+        }, 600);
+    };
 
     const {
         results,
+        bestResults,
         isPendingResult,
         deleteResult,
+        submitBestResults,
     } = useResult();
 
     //Different react components that make up the app layout
     return <div className={classes.content}>
+        <Header onNav={animateFrame} />
+        <Centered className={classes.centered}>
         <Frame animate
             show={frameVisible}
             corners={4}
@@ -47,18 +64,30 @@ const AppLayout = props => {
                             entered={anim.entered}
                             results={results}
                             isPendingResult={isPendingResult}
-                            deleteResult={deleteResult} />}>
+                            deleteResult={deleteResult} 
+                            submitBestResults = {submitBestResults}/>}
+                            >
                         </Route>
                         <Route exact path="/LeaderBoard" element={<Results
                             entered={anim.entered}
                             results={results}
                             isPendingResult={isPendingResult}
-                            deleteResult={deleteResult} />}>
+                            deleteResult={deleteResult} 
+                            submitBestResults = {submitBestResults}/>}
+                            >
+                        </Route>
+                        <Route exact path="/HallOfFame" element={<BestResults
+                            entered={anim.entered}
+                            bestResults={bestResults}
+                            isPendingResult={isPendingResult}
+                            deleteResult={deleteResult} />}
+                            >
                         </Route>
                     </Routes>
                 </div>
             )}
         </Frame>
+        </Centered>
     </div>;
 };
 
