@@ -14,10 +14,10 @@ const {
     httpDeleteResult,
 } = require('./round.controller');
 
-const trackRouter = express.Router();
+const roundRouter = express.Router();
 
-trackRouter.get('/', httpgetAllResults); //can use '/' here since we defined '/LeaderBoard in app.js'
-trackRouter.post('/', httpAddNewResult);
-trackRouter.delete('/:id', httpDeleteResult);
+roundRouter.get('/', httpgetAllResults); //can use '/' here since we defined '/LeaderBoard in app.js'
+roundRouter.post('/', httpAddNewResult);
+roundRouter.delete('/:id', httpDeleteResult);
 
-module.exports = trackRouter;
+module.exports = roundRouter;

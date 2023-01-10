@@ -14,10 +14,10 @@ const {
     httpDeleteBestRound,
 } = require('./bestRound.controller');
 
-const trackRouter = express.Router();
+const bestRoundRouter = express.Router();
 
-trackRouter.get('/', httpgetAllBestRound); //can use '/' here since we defined '/LeaderBoard in app.js'
-trackRouter.post('/', httpAddNewBestRound);
-trackRouter.delete('/:id', httpDeleteBestRound);
+bestRoundRouter.get('/', httpgetAllBestRound); //can use '/' here since we defined '/LeaderBoard in app.js'
+bestRoundRouter.post('/', httpAddNewBestRound);
+bestRoundRouter.delete('/:id', httpDeleteBestRound);
 
-module.exports = trackRouter;
+module.exports = bestRoundRouter;

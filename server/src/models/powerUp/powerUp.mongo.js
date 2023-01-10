@@ -19,8 +19,13 @@ const powerUpSchemas = new mongoose.Schema({
     powerUp:
     {
         required: true,
-        type:Number,
+        type: Number,
+    },
+    totalTime:
+    {
+        required: true,
+        type: Number,
     }
 });
 
-module.exports = mongoose.model('Track', trackSchemas);
+module.exports = mongoose.model('powerUps', powerUpSchemas);

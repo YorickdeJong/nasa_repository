@@ -44,8 +44,11 @@ const AppLayout = props => {
     const {
         results,
         bestResults,
+        powerUps,
         isPendingResult,
         deleteResult,
+        deleteBestResults,
+        deletePowerUp,
         submitBestResults,
     } = useResult();
 

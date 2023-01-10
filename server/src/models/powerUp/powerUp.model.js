@@ -8,7 +8,7 @@
 const powerUpDatabase = require('./powerUp.mongo');
 
 //GET, POST, DELETE
-async function getAllResults() {
+async function getAllPowerUps() {
     return await powerUpDatabase
         .find({}, {
             '_id': 0, '__v': 0
@@ -27,7 +27,7 @@ async function addNewPowerUp(result) {
     await savePowerUp(newPowerUp)
 }
 
-async function deleteResultId(Id) {
+async function deletePowerUpId(Id) {
     const deleted = await powerUpDatabase.findOneAndDelete({
         key: Id,
     }, (err, res) => {
@@ -44,7 +44,7 @@ async function deleteResultId(Id) {
 
 }
 
-async function existsResultWithId(Id) //Adjusting for mangoDB, we are now searching in mango to see if the launchId is equal to the flightNumber
+async function existsPowerUpWithId(Id) //Adjusting for mangoDB, we are now searching in mango to see if the launchId is equal to the flightNumber
 {
     return await powerUpDatabase.findOne({
         key: Id,
@@ -60,12 +60,14 @@ async function savePowerUp(result) {
         {
             key: result.key,
             robotId: result.robotId,
-            powerUp: powerUp
+            powerUp: result.powerUp,
+            totalTime: result.totalTime,
         }, 
         {       
             key: result.key, 
             roboId: result.robotId,
-            powerUp: powerUp
+            powerUp: result.powerUp,
+            totalTime: result.totalTime,
         },
         {
             upsert: true,
@@ -74,8 +76,8 @@ async function savePowerUp(result) {
 
 
 module.exports = {
-    getAllResults,
+    getAllPowerUps,
     addNewPowerUp,
-    deleteResultId,
-    existsResultWithId
+    deletePowerUpId,
+    existsPowerUpWithId
 };

@@ -6,48 +6,48 @@
  */
 
 const {
-    getAllResults,
-    addNewResult,
-    deleteResultId,
-    existsResultWithId
-} = require('../../models/round.model');
+    getAllPowerUps,
+    addNewPowerUp,
+    deletePowerUpId,
+    existsPowerUpWithId
+} = require('../../models/powerUp/powerUp.model');
 
 //returns response
-async function httpgetAllResults(req, res) {
-    return res.status(200).json(await getAllResults());
+async function httpgetAllPowerUps(req, res) {
+    return res.status(200).json(await getAllPowerUps());
 }
 
-async function httpAddNewResult(req, res) {
-    const result = req.body; //gets data from launch like mission, rocket, launchdata and target
+async function httpAddNewPowerUps(req, res) {
+    const powerUps = req.body; //gets data from launch like mission, rocket, launchdata and target
 
     //error handling post requests
-    if (!result.key || !result.robotId || !result.round || !result.roundTime || !result.totalTime) {
+    if (!powerUps.key || !powerUps.robotId || !powerUps.powerUp || !powerUps.totalTime) {
         return res.status(400).json({
-            error: 'Missing required properties: key/ robotId/ round/ roundTime/totalTime',
+            error: 'Missing required properties: key/ robotId/ powerUp /totalTime',
         });
     }
 
     //new launch is added here
-    await addNewResult(result);
-    return res.status(201).json(result) //created
+    await addNewPowerUp(powerUps);
+    return res.status(201).json(powerUps) //created
 }
 
-async function httpDeleteResult(req, res) {
+async function httpDeletePowerUps(req, res) {
     const Id = Number(req.params.id); //gets specific id 
 
-    const existsResult = await existsResultWithId(Id)
+    const existsPowerUps = await existsPowerUpWithId(Id)
     //if launch doesn't exist
-    if (!existsResult) {
+    if (!existsPowerUps) {
         return res.status(404).json({
-            error: 'Result not found',
+            error: 'powerUp not found',
         });
     }
 
     //if launch does exist
-    const canceled = await deleteResultId(Id);
+    const canceled = await deletePowerUpId(Id);
     if (!canceled) {
         return res.status(400).json({
-            error: 'Result not deleted',
+            error: 'powerUp not deleted',
         })
     }
     return res.status(200).json({
@@ -56,7 +56,7 @@ async function httpDeleteResult(req, res) {
 }
 
 module.exports = {
-    httpgetAllResults,
-    httpAddNewResult,
-    httpDeleteResult,
+    httpgetAllPowerUps,
+    httpAddNewPowerUps,
+    httpDeletePowerUps,
 }

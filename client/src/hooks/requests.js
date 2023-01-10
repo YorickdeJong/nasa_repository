@@ -9,6 +9,20 @@ async function httpGetResults() {
     })
 }
 
+async function httpGetBestResults(){
+    const response = await fetch(`${API_URL}/HallOfFame`);
+    const fetchedLeaderBoard = await response.json();
+    return fetchedLeaderBoard.sort((a,b) => {
+        return a.totalTime - b.totalTime;
+    });
+}
+
+async function httpGetPowerUp(){
+    const response = await fetch(`${API_URL}/HallOfFame`);
+    const fetchedPowerUp = await response.json();
+}
+
+
 // Delete launch with given ID.
 async function httpDeleteResult(id) {
     return await fetch(`${API_URL}/LeaderBoard/${id}`, { //fails to fetch but does delete
@@ -16,11 +30,17 @@ async function httpDeleteResult(id) {
     });
 }
 
-async function httpGetBestResults(){
-    const response = await fetch(`${API_URL}/HallOfFame`);
-    const fetchedLeaderBoard = await response.json();
-    return fetchedLeaderBoard.sort((a,b) => {
-        return a.totalTime - b.totalTime;
+// Delete launch with given ID.
+async function httpDeleteBestResults(id) {
+    return await fetch(`${API_URL}/HallOfFame/${id}`, { //fails to fetch but does delete
+        method: "DELETE",
+    });
+}
+
+// Delete launch with given ID.
+async function httpDeletePowerUp(id) {
+    return await fetch(`${API_URL}/PowerUp/${id}`, { //fails to fetch but does delete
+        method: "DELETE",
     });
 }
 
@@ -51,6 +71,9 @@ async function httpSubmitBestResult(result) {
 export {
     httpGetResults,
     httpGetBestResults,
+    httpGetPowerUp,
     httpDeleteResult,
+    httpDeleteBestResults,
+    httpDeletePowerUp,
     httpSubmitBestResult
 };

@@ -9,15 +9,15 @@
 const express = require('express');
 
 const {
-    httpgetAllResults,
-    httpAddNewResult,
-    httpDeleteResult,
-} = require('./round.controller');
+    httpgetAllPowerUps,
+    httpAddNewPowerUps,
+    httpDeletePowerUps,
+} = require('./powerUp.controller');
 
-const trackRouter = express.Router();
+const powerUpRouter = express.Router();
 
-trackRouter.get('/', httpgetAllResults); //can use '/' here since we defined '/LeaderBoard in app.js'
-trackRouter.post('/', httpAddNewResult);
-trackRouter.delete('/:id', httpDeleteResult);
+powerUpRouter.get('/', httpgetAllPowerUps); //can use '/' here since we defined '/LeaderBoard in app.js'
+powerUpRouter.post('/', httpAddNewPowerUps);
+powerUpRouter.delete('/:id', httpDeletePowerUps);
 
-module.exports = trackRouter;
+module.exports = powerUpRouter;

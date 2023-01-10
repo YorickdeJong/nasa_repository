@@ -33,4 +33,4 @@ const roundSchemas = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Tracks', roundSchemas);
+module.exports = mongoose.model('roundResult', roundSchemas); //make an atlas database called roundResult
