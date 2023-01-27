@@ -1,7 +1,9 @@
-import { useMemo, useEffect, useCallback } from "react";
-import { withStyles, Appear, Paragraph, Link, Table } from "arwes";
+import { useMemo, useState, useEffect, useCallback } from "react";
+import { withStyles, Appear, Paragraph, Footer, Button, Link, Table } from "arwes";
 import Clickable from "../components/Clickable";
+import useSWR from "swr";
 
+const fetcher = (url) => fetcher(url).then((res) => res.json());
 
 const styles = () => ({
     link: {
@@ -15,9 +17,14 @@ const Results = props => {
         entered,
         results,
         classes,
+        page, 
+        pageCount,
         deleteResult,
-        submitBestResults
+        submitBestResults,
+        handlePrevious,
+        handleNext
     } = props;
+
 
     //Submit new racing results to the hall of fame, such that the current race results
     //can be deleted
@@ -63,6 +70,14 @@ const Results = props => {
                 </tbody>
             </table>
         </Table>
+        <Footer animate>
+            <Button animate layer='success' disabled = {page === 1} onClick = {() => handlePrevious()}>
+                Previous
+            </Button>
+            <Button animate layer='success' disabled = {page === pageCount} onClick = {() => handleNext()}>
+                Next
+            </Button>
+        </Footer>
     </Appear>;
 };
 

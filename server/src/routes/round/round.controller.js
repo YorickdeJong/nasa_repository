@@ -9,14 +9,32 @@ const {
     getAllResults,
     addNewResult,
     deleteResultId,
-    existsResultWithId
+    existsResultWithId,
+    dataCount
 } = require('../../models/round/round.model');
+
+const { getPagination } = require('../../services/query');
 
 //returns response
 async function httpgetAllResults(req, res) {
-    return res.status(200).json(await getAllResults());
+    try{   
+        const count = dataCount();
+        const {skip, limit, pageCount} = getPagination(req.query, count);
+        const results = res.status(200).json(await getAllResults(skip, limit));
+        console.log(results.round);
+        return {
+            pagination: {
+                count, 
+                pageCount
+            }, 
+            results        
+        };
+    }
+    catch (e) {
+        console.error(e);
+        return e;
+    }
 }
-
 async function httpAddNewResult(req, res) {
     const result = req.body; //gets data from launch like mission, rocket, launchdata and target
 

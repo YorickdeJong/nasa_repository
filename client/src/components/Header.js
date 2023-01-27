@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import Clickable from "./Clickable";
 import Centered from "./Centered";
+import GoogleLogin from 'react-google-login';
 
 const styles = theme => ({
   root: {
@@ -63,8 +64,11 @@ const styles = theme => ({
   },
 });
 
+
+
 const Header = props => {
-  const { classes, onNav, ...rest } = props;
+
+  const { classes, onNav, isLoggedIn, httpsGoogleSignIn, ...rest } = props;
   return <ArwesHeader animate>
     <Centered className={classes.root} {...rest}>
       <img src="/favicon.png" alt="" className={classes.img} style={{
@@ -84,13 +88,38 @@ const Header = props => {
             </Link>
           </Highlight>
         </Clickable>
-        { <Clickable className={classes.clickable} onClick={onNav}>
+        <Clickable className={classes.clickable} onClick={onNav}>
           <Highlight className={classes.button} animate layer="header">
             <Link className={classes.link} to="/HallOfFame">
             Hall of Fame
             </Link>
           </Highlight>
-        </Clickable>}
+        </Clickable>
+        <Clickable className={classes.clickable} onClick={onNav}>
+          <Highlight className={classes.button} animate layer="header">
+            {/* <Link className={classes.link}>
+              Login
+            </Link> */}
+             {!isLoggedIn ? 
+             (
+             <button className={classes.button} onClick={() => httpsGoogleSignIn()}>
+               Login 
+            </button>): 
+            (
+              <button>User Info</button>
+            )}
+          {/* {!isLoggedIn ? (
+            <GoogleLogin
+          clientId="602136475426-9bvpm986opm23j350bekudfbhkcceoco.apps.googleusercontent.com"
+          buttonText="Login"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />) : (
+          <button className={classes.button}>User Info</button>
+        )} */}
+          </Highlight>
+        </Clickable>
       </nav>
     </Centered>
   </ArwesHeader>

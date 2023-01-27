@@ -1,11 +1,12 @@
-const API_URL = 'http://localhost:9000';  //changes with each internet connection!
+import axios from 'axios'
+const API_URL = 'https://localhost:9000';  //changes with each internet connection!
 
 // Load launches, sort by flight number, and return as JSON.
-async function httpGetResults() {
-    const response = await fetch(`${API_URL}/LeaderBoard`)
+async function httpGetResults(page) {
+    const response = await fetch(`${API_URL}/LeaderBoard?page=${page}`)
     const fetchedLeaderBoard = await response.json();
     return fetchedLeaderBoard.sort((a,b) => {
-        return a.round - b.round;
+        return b.round - a.round;
     })
 }
 
@@ -67,6 +68,21 @@ async function httpSubmitBestResult(result) {
   }  
 }
 
+const httpsGoogleSignIn =  async () => {
+    try {
+    //   // Send the id_token to the back-end for validation
+    const authUrl = 'https://localhost:9000/auth/google';
+
+    //const authWindow = window.open(authUrl, '_blank', 'width=600,height=600');
+    window.location.href = authUrl
+    console.log(new URLSearchParams(window.location.search))
+    // console.log(access_token)
+    
+
+  }catch (error) {
+       console.log(error);
+     }
+}
 
 export {
     httpGetResults,
@@ -75,5 +91,6 @@ export {
     httpDeleteResult,
     httpDeleteBestResults,
     httpDeletePowerUp,
-    httpSubmitBestResult
+    httpSubmitBestResult,
+    httpsGoogleSignIn
 };

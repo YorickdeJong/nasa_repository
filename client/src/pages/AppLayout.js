@@ -46,15 +46,21 @@ const AppLayout = props => {
         bestResults,
         powerUps,
         isPendingResult,
+        page,
+        pageCount,
+        isLoggedIn,
         deleteResult,
         deleteBestResults,
         deletePowerUp,
         submitBestResults,
+        handlePrevious,
+        handleNext,
+        httpsGoogleSignIn
     } = useResult();
 
     //Different react components that make up the app layout
     return <div className={classes.content}>
-        <Header onNav={animateFrame} />
+        <Header onNav={animateFrame} isLoggedIn={isLoggedIn} httpsGoogleSignIn={httpsGoogleSignIn}/>
         <Centered className={classes.centered}>
         <Frame animate
             show={frameVisible}
@@ -67,16 +73,24 @@ const AppLayout = props => {
                             entered={anim.entered}
                             results={results}
                             isPendingResult={isPendingResult}
+                            page = {page}
+                            pageCount = {pageCount}
                             deleteResult={deleteResult} 
-                            submitBestResults = {submitBestResults}/>}
+                            submitBestResults = {submitBestResults}
+                            handlePrevious={handlePrevious}
+                            handleNext={handleNext}/>}
                             >
                         </Route>
                         <Route exact path="/LeaderBoard" element={<Results
                             entered={anim.entered}
                             results={results}
                             isPendingResult={isPendingResult}
+                            page = {page}
+                            pageCount = {pageCount}
                             deleteResult={deleteResult} 
-                            submitBestResults = {submitBestResults}/>}
+                            submitBestResults = {submitBestResults}
+                            handlePrevious={handlePrevious}
+                            handleNext={handleNext}/>}
                             >
                         </Route>
                         <Route exact path="/HallOfFame" element={<BestResults

@@ -2,7 +2,7 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import AppLayout from "./pages/AppLayout";
-
+import axios from "axios"
 import {
   Arwes,
   ThemeProvider,
@@ -10,6 +10,10 @@ import {
 } from "arwes";
 
 import { theme, resources } from "./settings";
+
+function checkLoginStatus(){
+  axios.get("https://localhost:9000/")
+}
 
 const App = () => {
   return <ThemeProvider theme={createTheme(theme)}>

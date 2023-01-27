@@ -7,12 +7,18 @@
 
 const roundDatabase = require('./round.mongo');
 
+async function dataCount(){
+    return await roundDatabase.estimatedDocumentCount({});
+}
+
 //GET, POST, DELETE
-async function getAllResults() {
+async function getAllResults(skip, limit) {
     return await roundDatabase
         .find({}, {
             '_id': 0, '__v': 0
         })
+        .skip(skip)
+        .limit(limit)
         .catch(err => {
             console.log(err);
         })
@@ -81,5 +87,6 @@ module.exports = {
     getAllResults,
     addNewResult,
     deleteResultId,
-    existsResultWithId
+    existsResultWithId,
+    dataCount
 };

@@ -11,7 +11,8 @@ import {
     httpDeleteResult,
     httpDeleteBestResults,
     httpDeletePowerUp,
-    httpSubmitBestResult
+    httpSubmitBestResult,
+    httpsGoogleSignIn
 } from './requests';
 
 function useResult() {
@@ -19,12 +20,15 @@ function useResult() {
     const [bestResults, saveBestResults] = useState([]);
     const [powerUps, savePowerUps] = useState([]);
     const [isPendingResult, setPendingResult] = useState(false);
+    const [page, setPage] = useState(1);
+    const [pageCount, setPageCount] = useState(0);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     // Save fetched data in Result, use a callback here since we don't
     // want to reload data if it has not changed since the previous render
     // results array is set here
     const getResult = useCallback(async () => {
-        const fetchedResults = await httpGetResults();
+        const fetchedResults = await httpGetResults(page);
         saveResults(fetchedResults);
     }, []);    
     
@@ -86,6 +90,7 @@ function useResult() {
         
     }, [getBestResults])
 
+
     // Execute getResult() in useEffect, since we fetch data -> useEffect triggers getResult() 
     // after every rerender of the DOM
     useEffect(() => {
@@ -94,15 +99,69 @@ function useResult() {
         getPowerUps();
     }, []);
 
+    useEffect(() => {
+        if(results){
+            setPageCount(results.pagination);
+        }
+    }, [results])
+
+    useEffect(() => {
+        const access_token = localStorage.getItem('access_token');
+        console.log(access_token)
+        if (access_token) {
+        console.log(isLoggedIn)
+        setIsLoggedIn(true);
+        } else {
+        console.log(isLoggedIn)
+        setIsLoggedIn(false);
+        }
+    }, []);
+    
+    //     const responseGoogle = (response) => {
+    //     console.log(response)
+    //     if (response.accessToken) {
+    //     setIsLoggedIn(true);
+    //     setAccessToken(response.accessToken);
+    //     } else {
+    //     console.log('Error: ' + response.error);
+    //     }
+    // }
+    //SET PAGES
+    function handlePrevious(){
+        setPage((p) => {
+            if (p === 1)
+            {
+                return p;
+            }
+            return p - 1;
+        });
+    }
+
+    function handleNext(){
+        setPage((p) => {
+            if (p === pageCount)
+            {
+                return p;
+            }
+            return p + 1;
+        });
+    }
+
     return {
         results,
         bestResults,
         powerUps,
         isPendingResult,
+        page,
+        pageCount,
+        isLoggedIn,
         deleteResult,
         deleteBestResults,
         deletePowerUp,
         submitBestResults,
+        handlePrevious,
+        handleNext,
+        httpsGoogleSignIn
     };
 }
 
