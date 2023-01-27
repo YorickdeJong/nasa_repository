@@ -11,7 +11,7 @@ jobs: # define jobs that will run, will run in parallel. Can specify dependency 
     steps: # actions that will be taken on request
       - uses: actions/checkout@v2 # build in to github actions, specify version of checkout action
       - name: Use Node.js version 16
-        uses: actions/setup-node@v2 @
+        uses: actions/setup-node@v2
         with:
           node-version: "16" # uses node version 16
       - run: npm install # runs terminal commands
