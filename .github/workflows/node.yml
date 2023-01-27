@@ -16,5 +16,3 @@ jobs: # define jobs that will run, will run in parallel. Can specify dependency 
           node-version: "16" # uses node version 16
       - run: npm install # runs terminal commands
       - run: npm run build --prefix client # want to run our build on the front-end code, runs build in create-react app
-
-#test
